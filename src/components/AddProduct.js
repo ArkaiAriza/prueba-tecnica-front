@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { MenuItem, Select, TextField, InputLabel } from '@material-ui/core';
+import styled from 'styled-components';
 
 const fields = [
   {
@@ -22,6 +23,54 @@ const fields = [
     label: 'stock',
   },
 ];
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  min-height: 50%;
+  width: 50%;
+  max-width: 500px;
+  margin: 0 auto;
+  border: solid 2px #07b;
+  border-radius: 40px;
+`;
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  min-height: 50%;
+  width: 100%;
+`;
+
+const StyledButton = styled.div`
+  display: flex;
+  width: 30%;
+  min-height: 40px;
+  color: white;
+  background-color: #07b;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 10px;
+`;
+
+const StyledInput = styled(TextField)`
+  margin: 10px 0 !important;
+  width: 60%;
+`;
+
+const StyledSelect = styled(Select)`
+  margin: 10px 0 !important;
+  width: 60%;
+`;
 
 const AddProduct = () => {
   const [product, setProduct] = useState({
@@ -62,21 +111,22 @@ const AddProduct = () => {
       if (field.label === 'category') {
         return (
           <>
-            <InputLabel>{field.label}</InputLabel>
-            <Select
+            <StyledSelect
               value={product[field.label]}
+              id='select'
               label={field.label}
+              labelId='select'
               onChange={(e) =>
                 setProduct({ ...product, [field.label]: e.target.value })
               }
             >
               {renderCategories()}
-            </Select>
+            </StyledSelect>
           </>
         );
       }
       return (
-        <TextField
+        <StyledInput
           value={product[field.label]}
           label={field.label}
           onChange={(e) =>
@@ -88,17 +138,12 @@ const AddProduct = () => {
   };
 
   return (
-    <div>
-      <div>
-        <form
-          onSubmit={(e) => handleSubmit(e)}
-          style={{ display: 'flex', flexDirection: 'column', maxWidth: '50%' }}
-        >
-          {renderInputs()}
-          <button style={{ maxWidth: '10%' }}>Add</button>
-        </form>
-      </div>
-    </div>
+    <StyledContainer>
+      <StyledForm onSubmit={(e) => handleSubmit(e)}>
+        {renderInputs()}
+        <StyledButton>Add</StyledButton>
+      </StyledForm>
+    </StyledContainer>
   );
 };
 

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { OrderProvider } from '../context/OrderContext';
 
+import Home from './Home';
 import ProductsManagement from './ProductsManagement';
 import AddProduct from './AddProduct';
 import CategoriesManagement from './CategoriesManagement';
@@ -11,6 +12,7 @@ import AddCategory from './AddCategory';
 import ProductsList from './ProductsList';
 import Cart from './Cart';
 import ConfirmOrder from './ConfirmOrder';
+import ManagementHub from './ManagementHub';
 
 const App = () => {
   useEffect(() => {
@@ -23,6 +25,12 @@ const App = () => {
   return (
     <OrderProvider>
       <Router>
+        <Route path='/' exact>
+          <Home />
+        </Route>
+        <Route path='/ManagementHub' exact>
+          <ManagementHub />
+        </Route>
         <Route path='/ProductsManagement'>
           <ProductsManagement />
         </Route>
